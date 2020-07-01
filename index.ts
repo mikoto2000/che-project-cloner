@@ -1,4 +1,6 @@
+import { basename } from 'path'
 import { execSync } from 'child_process';
+import { existsSync } from 'fs'
 
 import WorkspaceClient, { IRemoteAPI, IRestAPIConfig } from '@eclipse-che/workspace-client';
 import { che } from '@eclipse-che/api';
@@ -54,10 +56,18 @@ function cloneAllProject(workspace:che.workspace.Workspace): void {
         }
 
         const location = e.source.location;
+        const sourceName = e.name;
         const branch = e.source.branch;
         const branchOption = branch ? '-b ' + e.source.branch : '';
+        const clonePath = e.clonePath ? e.clonePath : sourceName;
 
-        const buf = execSync('git clone ' + branchOption + ' ' + location, {cwd: CHE_PROJECTS_ROOT});
-        console.log(buf.toString('utf-8'));
+        try {
+            if (!existsSync(CHE_PROJECTS_ROOT + '/' + clonePath)) {
+                const buf = execSync('git clone ' + branchOption + ' ' + location + ' ' + clonePath, {cwd: CHE_PROJECTS_ROOT});
+                console.log(buf.toString('utf-8'));
+            }
+        } catch (e) {
+            console.log('Clone error, skip repository: ' + location);
+        }
     });
 }
