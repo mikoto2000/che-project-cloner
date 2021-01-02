@@ -1,12 +1,12 @@
 {
   "name": "che-project-cloner",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Project cloner for Eclipse Che.",
   "main": "index.js",
   "scripts": {
-    "build": "tsc index.ts",
-    "run": "tsc index.ts ; node index.js",
-    "nexe": "nexe index.js",
+    "build": "tsc",
+    "run": "tsc ; node index.js",
+    "nexe": "nexe -o che-project-cloner -t linux-x64-12.9.1 index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,8 +21,10 @@
   "homepage": "https://github.com/mikoto2000/che-project-cloner#readme",
   "dependencies": {
     "@eclipse-che/workspace-client": "0.0.1-1585913592",
-    "@types/node": "^14.0.14",
-    "nexe": "^3.3.6",
-    "typescript": "^3.9.5"
+    "@types/node": "^14.0.14"
+  },
+  "devDependencies": {
+    "nexe": "^3.3.7",
+    "typescript": "^3.9.7"
   }
 }
