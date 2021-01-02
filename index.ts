@@ -65,7 +65,9 @@ function cloneAllProject(workspace:che.workspace.Workspace): void {
         const clonePath = e.clonePath ? e.clonePath : sourceName;
 
         try {
-            if (!existsSync(CHE_PROJECTS_ROOT + '/' + clonePath)) {
+            if (existsSync(CHE_PROJECTS_ROOT + '/' + clonePath)) {
+                console.log(CHE_PROJECTS_ROOT + '/' + clonePath + " is already exists.");
+            }else {
                 const buf = execSync('git clone --recursive ' + branchOption + ' ' + location + ' ' + clonePath, {cwd: CHE_PROJECTS_ROOT});
                 console.log(buf.toString('utf-8'));
             }
