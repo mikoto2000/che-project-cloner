@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "run": "tsc ; node index.js",
-    "nexe": "nexe index.js",
+    "nexe": "nexe -o che-project-cloner -t linux-x64-12.9.1 index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
