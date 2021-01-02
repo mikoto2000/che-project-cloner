@@ -4,8 +4,8 @@
   "description": "Project cloner for Eclipse Che.",
   "main": "index.js",
   "scripts": {
-    "build": "tsc index.ts",
-    "run": "tsc index.ts ; node index.js",
+    "build": "tsc",
+    "run": "tsc ; node index.js",
     "nexe": "nexe index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
