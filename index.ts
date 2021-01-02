@@ -9,6 +9,7 @@ import { che } from '@eclipse-che/api';
 const restApiClient = createRestClient();
 
 // ワークスペース情報取得要求
+assert(process.env.CHE_WORKSPACE_ID, "process.env.CHE_WORKSPACE_ID is not found.");
 const CHE_WORKSPACE_ID: string = process.env.CHE_WORKSPACE_ID;
 const promise: Promise<che.workspace.Workspace> = restApiClient.getById<che.workspace.Workspace>(CHE_WORKSPACE_ID);
 
@@ -48,8 +49,10 @@ function cloneAllProject(workspace:che.workspace.Workspace): void {
 
     // devfile で指定された project をクローンする
     // v0.0.1 時点では git のみサポート
+    assert(workspace.devfile, "devfile not found.");
     const projects = workspace.devfile.projects ? workspace.devfile.projects : [];
     projects.forEach((e) => {
+        assert(e.source, "project not found.");
         if (e.source.type !== 'git') {
             console.log('Not support source type: ' + e.source.type + ', che-project-cloner support only "git".');
             return;
@@ -71,3 +74,20 @@ function cloneAllProject(workspace:che.workspace.Workspace): void {
         }
     });
 }
+
+
+/**
+ * null/undefined を殺すための関数。
+ */
+function assert(condition: any, msg?: string): asserts condition {
+  if (!condition) {
+    throw new AssertionError(msg);
+  }
+}
+
+/**
+ * assert 関数の condition が null/undefined だった場合に送出されるエラー。
+ */
+class AssertionError extends Error {
+}
+
