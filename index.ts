@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { basename } from 'path'
 import { execSync } from 'child_process';
 import { existsSync } from 'fs'

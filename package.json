@@ -2,6 +2,10 @@
   "name": "che-project-cloner",
   "version": "0.0.3",
   "description": "Project cloner for Eclipse Che.",
+  "preferGlobal": true,
+  "bin": {
+    "che-project-cloner": "index.js"
+  },
   "main": "index.js",
   "scripts": {
     "build": "tsc",
